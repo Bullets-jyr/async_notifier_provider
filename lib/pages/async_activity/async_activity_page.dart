@@ -4,6 +4,7 @@ import 'package:bulleted_list/bulleted_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../extensions/async_value_xx.dart';
 import '../../models/activity.dart';
 import 'async_activity_provider.dart';
 
@@ -12,21 +13,46 @@ class AsyncActivityPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AsyncValue<Activity>>(
+      asyncActivityProvider,
+          (previous, next) {
+        if (next.hasError && !next.isLoading) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(next.error.toString()),
+              );
+            },
+          );
+        }
+      },
+    );
+
     final activityState = ref.watch(asyncActivityProvider);
-    print(activityState);
-    print('isLoading: ${activityState.isLoading}, isRefreshing: ${activityState.isRefreshing}, isReloading: ${activityState.isReloading}');
-    print('hasValue: ${activityState.hasValue}, hasError: ${activityState.hasError}');
+    print(activityState.toStr);
+    print(activityState.props);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('AsyncActivityProvider'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.invalidate(asyncActivityProvider);
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: activityState.when(
+        skipError: true,
+        skipLoadingOnRefresh: false,
         data: (activity) => ActivityWidget(activity: activity),
-        error: (e, st) => Center(
+        error: (e, st) => const Center(
           child: Text(
-            e.toString(),
-            style: const TextStyle(
+            'Get some activity',
+            style: TextStyle(
               fontSize: 20,
               color: Colors.red,
             ),
