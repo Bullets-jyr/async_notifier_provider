@@ -46,6 +46,7 @@ class AsyncActivityPage extends ConsumerWidget {
         ],
       ),
       body: activityState.when(
+        // previous value
         skipError: true,
         skipLoadingOnRefresh: false,
         data: (activity) => ActivityWidget(activity: activity),

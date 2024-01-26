@@ -38,6 +38,7 @@ part 'counter_provider.g.dart';
 //     // try {
 //     //   await waitSecond();
 //     //   // throw 'Fail to increment';
+//     //   // state.value: state의 이전 데이터 값
 //     //   state = AsyncData(state.value! + 1);
 //     // } catch (error, stackTrace) {
 //     //   state = AsyncError(error, stackTrace);
