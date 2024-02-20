@@ -15,8 +15,7 @@ class Activity with _$Activity {
     required String key,
   }) = _Activity;
 
-  factory Activity.fromJson(Map<String, dynamic> json) =>
-      _$ActivityFromJson(json);
+  factory Activity.fromJson(Map<String, dynamic> json) => _$ActivityFromJson(json);
 
   factory Activity.empty() => const Activity(
         activity: '',

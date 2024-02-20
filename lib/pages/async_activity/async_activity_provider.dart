@@ -14,6 +14,7 @@ class AsyncActivity extends _$AsyncActivity {
     ref.onDispose(() {
       print('[asyncActivityProvider] disposed');
     });
+    // AsyncNotifier build함수에서는 state를 async하게 initialize할 수 있습니다.
     return getActivity(activityTypes[0]);
   }
 
@@ -27,9 +28,14 @@ class AsyncActivity extends _$AsyncActivity {
   }
 
   Future<void> fetchActivity(String activityType) async {
+    // state = const AsyncLoading(); 이것도 가능합니다.
     state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() async {
+      // if (_errorCounter++ % 2 != 1) {
+      //   await Future.delayed(const Duration(seconds: 1));
+      //   throw 'Fail to fetch activity';
+      // }
       return getActivity(activityType);
     });
   }

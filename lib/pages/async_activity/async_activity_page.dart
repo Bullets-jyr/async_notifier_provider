@@ -13,6 +13,7 @@ class AsyncActivityPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // AlertDialog
     ref.listen<AsyncValue<Activity>>(
       asyncActivityProvider,
           (previous, next) {
@@ -30,6 +31,9 @@ class AsyncActivityPage extends ConsumerWidget {
     );
 
     final activityState = ref.watch(asyncActivityProvider);
+    // print(activityState);
+    // print('isLoading: ${activityState.isLoading}, isRefreshing: ${activityState.isRefreshing}, isReloading: ${activityState.isReloading}');
+    // print('hasValue: ${activityState.hasValue}, hasError: ${activityState.hasError}');
     print(activityState.toStr);
     print(activityState.props);
 
@@ -46,12 +50,13 @@ class AsyncActivityPage extends ConsumerWidget {
         ],
       ),
       body: activityState.when(
-        // previous value
+        // previous value가 있으면 error callback 대신에 previous value를 이용해 data callback을 호출할 것이지 결정하는 flag입니다.
         skipError: true,
         skipLoadingOnRefresh: false,
         data: (activity) => ActivityWidget(activity: activity),
         error: (e, st) => const Center(
           child: Text(
+            // e.toString(),
             'Get some activity',
             style: TextStyle(
               fontSize: 20,
@@ -67,9 +72,7 @@ class AsyncActivityPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           final randomNumber = Random().nextInt(activityTypes.length);
-          ref
-              .read(asyncActivityProvider.notifier)
-              .fetchActivity(activityTypes[randomNumber]);
+          ref.read(asyncActivityProvider.notifier).fetchActivity(activityTypes[randomNumber]);
         },
         label: Text(
           'New Activity',

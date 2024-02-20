@@ -11,6 +11,7 @@ class CounterPage extends ConsumerWidget {
     // final counter = ref.watch(counterProvider);
     final counter = ref.watch(counterProvider(10));
     print(counter);
+    // AsyncValue<int> counter
     print('isLoading: ${counter.isLoading}, isRefreshing: ${counter.isRefreshing}, isReloading: ${counter.isReloading}');
     print('hasValue: ${counter.hasValue}, hasError: ${counter.hasError}');
 
@@ -20,6 +21,7 @@ class CounterPage extends ConsumerWidget {
       ),
       body: Center(
         child: counter.when(
+          // ref.invalidate, ref.refresh: loading: () => const CircularProgressIndicator(),
           skipLoadingOnRefresh: false,
           data: (count) {
             return Column(
