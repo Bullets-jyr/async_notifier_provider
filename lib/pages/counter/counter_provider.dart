@@ -106,13 +106,13 @@ class Counter extends _$Counter {
       return state.value! + 1;
     });
 
-    // try {
-    //   await waitSecond();
-    //   // throw 'Fail to increment';
-    //   state = AsyncData(state.value! + 1);
-    // } catch (error, stackTrace) {
-    //   state = AsyncError(error, stackTrace);
-    // }
+    try {
+      await waitSecond();
+      // throw 'Fail to increment';
+      state = AsyncData(state.value! + 1);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+    }
   }
 
   Future<void> decrement() async {
@@ -123,11 +123,11 @@ class Counter extends _$Counter {
       return state.value! - 1;
     });
 
-    // try {
-    //   await waitSecond();
-    //   state = AsyncData(state.value! - 1);
-    // } catch (error, stackTrace) {
-    //   state = AsyncError(error, stackTrace);
-    // }
+    try {
+      await waitSecond();
+      state = AsyncData(state.value! - 1);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+    }
   }
 }
