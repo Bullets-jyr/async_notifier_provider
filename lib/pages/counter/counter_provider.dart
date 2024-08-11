@@ -28,6 +28,7 @@ part 'counter_provider.g.dart';
 //   //   AsyncData state를 emit했습니다.
 //   //   return 0; // CircularProgressIndicator 표시되지 않고 바로 0이 표시됩니다. AysncLoading()은 emit되지 않습니다.
 //   //   return Future.value(0); // CircularProgressIndicator 표시되지 않고 바로 0이 표시됩니다. AysncLoading()은 emit되었습니다. (지연시간이 없어서)
+//   //   // 이 특성을 이용하면 AsyncNotifier를 초기 state가 async하게 초기화될 필요가 없는 경우에도 사용할 수 있습니다.
 //   // }
 
 //   Future<void> waitSecond() => Future.delayed(const Duration(seconds: 1));

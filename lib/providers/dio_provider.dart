@@ -6,6 +6,6 @@ part 'dio_provider.g.dart';
 @riverpod
 Dio dio(DioRef ref) {
   return Dio(
-    BaseOptions(baseUrl: 'http://www.boredapi.com/api/activity'),
+    BaseOptions(baseUrl: 'https://bored-api.appbrewery.com/filter'),
   );
 }

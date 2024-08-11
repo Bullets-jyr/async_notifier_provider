@@ -24,7 +24,8 @@ class AsyncActivity extends _$AsyncActivity {
       throw 'Fail to fetch activity';
     }
     final response = await ref.read(dioProvider).get('?type=$activityType');
-    return Activity.fromJson(response.data);
+    final List activityList = response.data;
+    return Activity.fromJson(activityList.first);
   }
 
   Future<void> fetchActivity(String activityType) async {

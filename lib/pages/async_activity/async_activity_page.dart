@@ -16,7 +16,7 @@ class AsyncActivityPage extends ConsumerWidget {
     // AlertDialog
     ref.listen<AsyncValue<Activity>>(
       asyncActivityProvider,
-          (previous, next) {
+      (previous, next) {
         // AsyncValue type
         if (next.hasError && !next.isLoading) {
           showDialog(
@@ -74,7 +74,9 @@ class AsyncActivityPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           final randomNumber = Random().nextInt(activityTypes.length);
-          ref.read(asyncActivityProvider.notifier).fetchActivity(activityTypes[randomNumber]);
+          ref
+              .read(asyncActivityProvider.notifier)
+              .fetchActivity(activityTypes[randomNumber]);
         },
         label: Text(
           'New Activity',
@@ -111,9 +113,13 @@ class ActivityWidget extends StatelessWidget {
             ),
             listItems: [
               'activity: ${activity.activity}',
-              'accessibility: ${activity.accessibility}',
+              'availability: ${activity.availability}',
               'participants: ${activity.participants}',
               'price: ${activity.price}',
+              'accessibility: ${activity.accessibility}',
+              'duration: ${activity.duration}',
+              'link: ${activity.link.isEmpty ? 'no link' : activity.link}',
+              'kidFriendly: ${activity.kidFriendly}',
               'key: ${activity.key}',
             ],
             style: Theme.of(context).textTheme.titleLarge,
